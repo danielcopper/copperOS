@@ -20,6 +20,7 @@ This is based on version 11.2 (systemd) of LFS.
       - [Chapter 5.5 - Glibc-2.36](#chapter-55---glibc-236)
     - [Chapter 6](#chapter-6)
     - [Chapter 7](#chapter-7)
+      - [Chapter 7.7 - Gettext-0.21](#chapter-77---gettext-021)
     - [Chapter 8](#chapter-8)
     - [Chapter 9](#chapter-9)
     - [Chapter 10](#chapter-10)
@@ -81,7 +82,7 @@ export LFS=/mnt/lfs
 
 ### Chapter 1 - Introduction
 
-Nothing to see here.
+Nothing to note here.
 
 ### Chapter 2 - Preparing the Host System
 
@@ -266,11 +267,21 @@ Do this whenever the book states that multicore compiling could lead to errors.
 
 ### Chapter 6
 
-Nothing to see here.
+Nothing to note here.
 
 ### Chapter 7
 
-Nothing to see here.
+For this chapters builds the same structure as explained in [Chapter 5](#chapter-5) applies.
+
+#### Chapter 7.7 - Gettext-0.21
+
+Before starting building and installing again, run:
+
+``` sh
+export MAKEFLAGS=-j6
+```
+
+This again makes sure we are using all our cores. Do this also whenever a Host restart happened.
 
 ### Chapter 8
 
