@@ -17,6 +17,7 @@ This is based on version 11.2 (systemd) of LFS.
     - [Chapter 3](#chapter-3)
     - [Chapter 4](#chapter-4)
     - [Chapter 5](#chapter-5)
+      - [Chapter 5.5 - Glibc-2.36](#chapter-55---glibc-236)
     - [Chapter 6](#chapter-6)
     - [Chapter 7](#chapter-7)
     - [Chapter 8](#chapter-8)
@@ -211,11 +212,57 @@ wget https://www.linuxfromscratch.org/lfs/view/stable-systemd/md5sums
 
 ### Chapter 4
 
-Nothing to see here.
+For the compiling and building of the packages for LFS to be as quick as possible modify the bashrc file as lfs user and add 'MAKEFLAGS='-j6''. This example is for 6 CPU Cores that are allocated to the VM.
+
+Don't forget to add 'MAKEFLAGS' to the export list of this file.
+
+``` sh
+nano ~/.bashrc
+```
+
+The final file should like this:
+
+![image](/Personal%20Resources/LFS-bashrc.png)
 
 ### Chapter 5
 
-Nothing to see here.
+We are compiling the packages in this chapter. Follow the instructions from the book but untar before and remove at the end for each package with these commands.
+
+This is an example for the 'binutils' package. Run these one after the other, one block at a time.
+
+``` sh
+tar -xf binutils-2.39.tar.xz
+
+cd binutils-2.39.tar.xz
+
+mkdir -v build
+cd       build
+
+../configure --prefix=$LFS/tools \
+             --with-sysroot=$LFS \
+             --target=$LFS_TGT   \
+             --disable-nls       \
+             --enable-gprofng=no \
+             --disable-werror
+
+make
+
+make install
+
+cd ../..
+
+rm -rf binutils-2.39
+```
+
+#### Chapter 5.5 - Glibc-2.36
+
+To prevent compiling errors run:
+
+``` sh
+make -j1
+```
+
+Do this whenever the book states that multicore compiling could lead to errors.
 
 ### Chapter 6
 
