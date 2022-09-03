@@ -197,7 +197,17 @@ mount -v -t ext4 /dev/sdb3 $LFS/home
 
 ### Chapter 3
 
-Nothing to see here.
+Before downloading all the packages with the following command cd into $LFS/sources.
+
+``` sh
+wget https://www.linuxfromscratch.org/lfs/view/stable-systemd/wget-list-systemd
+```
+
+Also get the md5sum.
+
+``` sh
+wget https://www.linuxfromscratch.org/lfs/view/stable-systemd/md5sums
+```
 
 ### Chapter 4
 
