@@ -24,6 +24,12 @@ This is based on version 11.2 (systemd) of LFS.
     - [Chapter 8](#chapter-8)
       - [Systemd](#systemd)
     - [Chapter 9](#chapter-9)
+      - [Chapter 9.2.1. Network Interface Configuration Files](#chapter-921-network-interface-configuration-files)
+      - [Chapter 9.2.2. - Creating the /etc/resolv.conf File](#chapter-922---creating-the-etcresolvconf-file)
+      - [Chapter 9.2.3. - Configuring the system hostname](#chapter-923---configuring-the-system-hostname)
+      - [Chapter 9.2.4. Customizing the /etc/hosts File](#chapter-924-customizing-the-etchosts-file)
+      - [Chapter 9.7. - Configuring the System Locale](#chapter-97---configuring-the-system-locale)
+      - [Chapter 9.10. - Systemd Usage and Configuration](#chapter-910---systemd-usage-and-configuration)
     - [Chapter 10](#chapter-10)
     - [Chapter 11](#chapter-11)
   - [Useful Links](#useful-links)
@@ -295,7 +301,69 @@ Maybe this will be a problem later if I decide to include a package manager.
 
 ### Chapter 9
 
-Nothing to note here.
+#### Chapter 9.2.1. Network Interface Configuration Files
+
+The system is configured for DHCP setup.
+
+![image](Personal%20Resources/dhcp-setup.png)
+
+#### Chapter 9.2.2. - Creating the /etc/resolv.conf File
+
+Creating the /etc/resolv.conf file skipped for now. (Should be created on its own later)
+
+#### Chapter 9.2.3. - Configuring the system hostname
+
+Run this:
+
+``` sh
+echo "copperOS" > /etc/hostname
+```
+
+#### Chapter 9.2.4. Customizing the /etc/hosts File
+
+Make /etc/hosts file look like this:
+
+``` vim
+# Begin /etc/hosts
+
+127.0.0.1 localhost.localdomain localhost
+127.0.1.1 copperOS
+
+::1       localhost ip6-localhost ip6-loopback
+ff02::1   ip6-allnodes
+ff02::2   ip6-allrouters
+
+# End /etc/hosts
+```
+
+#### Chapter 9.7. - Configuring the System Locale
+
+The locale is configured for en_US. Run this command to set this up:
+
+``` vim
+LC_ALL=en_US.ISO-8859-1 locale language
+LC_ALL=en_US.ISO-8859-1 locale charmap
+LC_ALL=en_US.ISO-8859-1 locale int_curr_symbol
+LC_ALL=en_US.ISO-8859-1 locale int_prefix
+```
+
+Then create the locale.conf
+
+``` vim
+cat > /etc/locale.conf << "EOF"
+LANG=<ll>_<CC>.<charmap><@modifiers>
+EOF
+```
+
+Vim into this file and make it look like this:
+
+![image](Personal%20Resources/LFS-locale.conf.png)
+
+#### Chapter 9.10. - Systemd Usage and Configuration
+
+Disabled screen clearing on boot.
+
+Configuration file for core dumps created.
 
 ### Chapter 10
 
