@@ -22,6 +22,7 @@ This is based on version 11.2 (systemd) of LFS.
     - [Chapter 7](#chapter-7)
       - [Chapter 7.7 - Gettext-0.21](#chapter-77---gettext-021)
     - [Chapter 8](#chapter-8)
+      - [Systemd](#systemd)
     - [Chapter 9](#chapter-9)
     - [Chapter 10](#chapter-10)
     - [Chapter 11](#chapter-11)
@@ -285,19 +286,24 @@ This again makes sure we are using all our cores. Do this also whenever a Host r
 
 ### Chapter 8
 
-Nothing to see here.
+For this chapters builds the same structure as explained in [Chapter 5](#chapter-5) applies.
+
+#### Systemd
+
+Maybe this will be a problem later if I decide to include a package manager.
+*systemctl disable systemd-sysupdate*
 
 ### Chapter 9
 
-Nothing to see here.
+Nothing to note here.
 
 ### Chapter 10
 
-Nothing to see here.
+Nothing to note here.
 
 ### Chapter 11
 
-Nothing to see here.
+Nothing to note here.
 
 ## Useful Links
 
