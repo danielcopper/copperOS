@@ -31,25 +31,26 @@ This is based on version 11.2 (systemd) of LFS.
       - [Chapter 9.7. - Configuring the System Locale](#chapter-97---configuring-the-system-locale)
       - [Chapter 9.10. - Systemd Usage and Configuration](#chapter-910---systemd-usage-and-configuration)
     - [Chapter 10](#chapter-10)
+      - [Chapter 10.3. - Linux-5.19.2](#chapter-103---linux-5192)
     - [Chapter 11](#chapter-11)
-  - [Useful Links](#useful-links)
+  - [Useful Links and Remarks](#useful-links-and-remarks)
   - [Acknowledgement](#acknowledgement)
 
 ## Host System
 
-The Host System is Ubuntu 22.04.1 running as a Virtual Machine in Hyper-V.
-I used xRDP to log into the VM to have Hyper-Vs enhanced session supported.
+The Host System is Ubuntu 22.04.1 (other distros should work) running as a Virtual Machine in Hyper-V.
+xRDP is used to log into the VM to have Hyper-Vs enhanced session supported.
 
 ### Setting up the VM
-
-Look for the prepared virtual disc on my OneDrive or follow these steps:
 
 Create a new VM in Hyper-V.
 
 - Generation 2
+- Disable dynamically managed RAM
 - Network default switch
+- (Adjust amount of CPU cores)
 
-Before starting the VM make sure to change the safe start settings from windows to UEFI certified. Also maybe adjust the amount of CPU cores assigned.
+Before starting the VM make sure to change the safe start settings from windows to UEFI certified. Disable safe start as well.
 
 **!!! Make absolutely sure not to check the box for auto login !!!**
 
@@ -179,7 +180,7 @@ In order to be able to create a new partition in gparted, add a new .vhdx disc i
 
 Partition it in GParted like this:
 
-![image](/Personal%20Resources/LFS-Partitions.png)
+![image](resources/images/LFS-Partitions.png)
 
 #### Chapter 2.6 - Setting The $LFS Variable
 
@@ -230,7 +231,7 @@ nano ~/.bashrc
 
 The final file should like this:
 
-![image](/Personal%20Resources/LFS-bashrc.png)
+![image](/resources/images/LFS-bashrc.png)
 
 ### Chapter 5
 
@@ -305,7 +306,7 @@ Maybe this will be a problem later if I decide to include a package manager.
 
 The system is configured for DHCP setup.
 
-![image](Personal%20Resources/dhcp-setup.png)
+![image](resources/images/dhcp-setup.png)
 
 #### Chapter 9.2.2. - Creating the /etc/resolv.conf File
 
@@ -316,7 +317,7 @@ Creating the /etc/resolv.conf file skipped for now. (Should be created on its ow
 Run this:
 
 ``` sh
-echo "copperOS" > /etc/hostname
+echo "copper" > /etc/hostname
 ```
 
 #### Chapter 9.2.4. Customizing the /etc/hosts File
@@ -327,7 +328,7 @@ Make /etc/hosts file look like this:
 # Begin /etc/hosts
 
 127.0.0.1 localhost.localdomain localhost
-127.0.1.1 copperOS
+127.0.1.1 copper.copperOS.com copper
 
 ::1       localhost ip6-localhost ip6-loopback
 ff02::1   ip6-allnodes
@@ -357,7 +358,7 @@ EOF
 
 Vim into this file and make it look like this:
 
-![image](Personal%20Resources/LFS-locale.conf.png)
+![image](/resources/images/LFS-locale.conf.png)
 
 #### Chapter 9.10. - Systemd Usage and Configuration
 
@@ -367,13 +368,19 @@ Configuration file for core dumps created.
 
 ### Chapter 10
 
-Nothing to note here.
+#### Chapter 10.3. - Linux-5.19.2
+
+For this sections again use the methods described in [Chapter 5](#chapter-5).
+
+Don't forget to adjust the kernel configuration if the Host is using UEFI.
+
+**!!! DO NOT DELETE THE /sources/linux-5.19.2 FOLDER YET !!!**
 
 ### Chapter 11
 
 Nothing to note here.
 
-## Useful Links
+## Useful Links and Remarks
 
 [xRDP enhanced session](https://github.com/Hinara/linux-vm-tools).
 
