@@ -1,7 +1,9 @@
 # copperOS
 
-This is my personal take on Linux From Scratch.
-This is based on version 11.2 (systemd) of LFS.
+This is my personal take on Linux From Scratch, based on version 11.2 (systemd) of LFS.
+Consider this a cheatsheat for me to install LFS manual correctly.
+
+I plan on turning this into automated shell scripts.ex
 
 - [copperOS](#copperos)
   - [Host System](#host-system)
@@ -23,16 +25,18 @@ This is based on version 11.2 (systemd) of LFS.
       - [Chapter 7.7 - Gettext-0.21](#chapter-77---gettext-021)
     - [Chapter 8](#chapter-8)
       - [Systemd](#systemd)
+      - [GRUB](#grub)
     - [Chapter 9](#chapter-9)
       - [Chapter 9.2.1. Network Interface Configuration Files](#chapter-921-network-interface-configuration-files)
       - [Chapter 9.2.2. - Creating the /etc/resolv.conf File](#chapter-922---creating-the-etcresolvconf-file)
       - [Chapter 9.2.3. - Configuring the system hostname](#chapter-923---configuring-the-system-hostname)
       - [Chapter 9.2.4. Customizing the /etc/hosts File](#chapter-924-customizing-the-etchosts-file)
       - [Chapter 9.7. - Configuring the System Locale](#chapter-97---configuring-the-system-locale)
-      - [Chapter 9.10. - Systemd Usage and Configuration](#chapter-910---systemd-usage-and-configuration)
     - [Chapter 10](#chapter-10)
       - [Chapter 10.3. - Linux-5.19.2](#chapter-103---linux-5192)
+      - [Chapter 10.4.4. - Creating the GRUB Configuration File](#chapter-1044---creating-the-grub-configuration-file)
     - [Chapter 11](#chapter-11)
+      - [If running into problems while booting](#if-running-into-problems-while-booting)
   - [Useful Links and Remarks](#useful-links-and-remarks)
   - [Acknowledgement](#acknowledgement)
 
@@ -300,6 +304,10 @@ For this chapters builds the same structure as explained in [Chapter 5](#chapter
 Maybe this will be a problem later if I decide to include a package manager.
 *systemctl disable systemd-sysupdate*
 
+#### GRUB
+
+Follow the install instructions from [BLFS](https://www.linuxfromscratch.org/blfs/view/stable-systemd/postlfs/grub-efi.html).
+
 ### Chapter 9
 
 #### Chapter 9.2.1. Network Interface Configuration Files
@@ -360,7 +368,7 @@ Vim into this file and make it look like this:
 
 ![image](/resources/images/LFS-locale.conf.png)
 
-#### Chapter 9.10. - Systemd Usage and Configuration
+
 
 Disabled screen clearing on boot.
 
@@ -376,9 +384,49 @@ Don't forget to adjust the kernel configuration if the Host is using UEFI.
 
 **!!! DO NOT DELETE THE /sources/linux-5.19.2 FOLDER YET !!!**
 
+#### Chapter 10.4.4. - Creating the GRUB Configuration File
+
+Make sure the config looks like this:
+
+**This is wrong** root refers to grubs root not the system root. so it should be sda1.
+
+![image](/resources/images/lfs-grub-config.png)
+
 ### Chapter 11
 
-Nothing to note here.
+If you can't unmount $LFS in Chapter 11.3 because it is busy, use this command (lazy umount)
+
+``` sh
+umount -lv $LFS
+```
+
+#### If running into problems while booting
+
+Make sure you have mounted /dev/sda correct before installing grub and the kernel.
+
+This might help:  
+In case theres something wrong unmount sda1 and mount it to a temporary directory.
+Then copy all files from boot to the temporary. Delete the boot and remount sda1 as boot:
+
+``` sh
+cd /
+umount /dev/sda1
+mkdir /tempboot
+mount -v /dev/sda1 /tempboot
+copy -r /boot/* /tempboot
+rm -rf /boot/*
+umount /dev/sda1
+mount -v /dev/sda1 /boot
+```
+
+Try this:
+
+``` sh
+root = /dev/sda2
+insmod all_video
+linux $prefix/../vmlinuz-5.19.2-lfs-11.2-systemd raid=noautodetect
+boot
+```
 
 ## Useful Links and Remarks
 
